@@ -109,6 +109,8 @@ const convertToPitch = (base4Chords) => {
             break;
           case 3:
             newArray[x].push('Eb4');
+            break;
+            default: console.log('default case')
           }
           switch (midRegister) {
             case 0:
@@ -122,6 +124,9 @@ const convertToPitch = (base4Chords) => {
               break;
             case 3:
             newArray[x].push('G4');
+            break;
+            default: console.log('default case')
+            break;
           }
           switch (highRegister) {
             case 0:
@@ -135,6 +140,8 @@ const convertToPitch = (base4Chords) => {
               break;
             case 3:
             newArray[x].push('B4');
+            break;
+            default: console.log('default case')
           }
       }
  
