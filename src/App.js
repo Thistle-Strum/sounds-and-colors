@@ -97,44 +97,51 @@ const convertToPitch = (base4Chords) => {
       let midRegister = base4Chords[x][1] 
       let highRegister = base4Chords[x][2]
 
-        switch (lowRegister) {
+      switch (lowRegister) {
+        case 0:
+          newArray[x].push('C4');
+          break;
+        case 1:
+          newArray[x].push('Db4');
+          break;
+        case 2:
+          newArray[x].push('D4');
+          break;
+        case 3:
+          newArray[x].push('Eb4');
+          break;
+          default: console.log('default case')
+        }
+        switch (midRegister) {
           case 0:
-            newArray[x].push('C4');
+          newArray[x].push('E4');
             break;
           case 1:
-            newArray[x].push('Db4');
+          newArray[x].push('F4');
             break;
           case 2:
-            newArray[x].push('D4');
+          newArray[x].push('Gb4');
             break;
           case 3:
-            newArray[x].push('Eb4');
-          }
-          switch (midRegister) {
-            case 0:
-            newArray[x].push('E4');
-              break;
-            case 1:
-            newArray[x].push('F4');
-              break;
-            case 2:
-            newArray[x].push('Gb4');
-              break;
-            case 3:
-            newArray[x].push('G4');
-          }
-          switch (highRegister) {
-            case 0:
-            newArray[x].push('Ab4');
-              break;
-            case 1:
-            newArray[x].push('A4');
-              break;
-            case 2:
-            newArray[x].push('Bb4');
-              break;
-            case 3:
-            newArray[x].push('B4');
+          newArray[x].push('G4');
+          break;
+          default: console.log('default case')
+          break;
+        }
+        switch (highRegister) {
+          case 0:
+          newArray[x].push('Ab4');
+            break;
+          case 1:
+          newArray[x].push('A4');
+            break;
+          case 2:
+          newArray[x].push('Bb4');
+            break;
+          case 3:
+          newArray[x].push('B4');
+          break;
+          default: console.log('default case')
           }
       }
  
