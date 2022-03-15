@@ -8,93 +8,88 @@ import HexColorCodes from './HexColorCodes';
 
 function App() {
 
-  const [ paintingForm, setPaintingForm ] = useState([]) 
-  const [ painting, setPainting ] = useState([]);
-  const [ title, setTitle ] = useState([]);
-  const [ colors, setColors ] = useState([]);
-  const [ playButton, setPlayButton] = useState(false);
+  const [paintingForm, setPaintingForm] = useState([])
+  const [painting, setPainting] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [playButton, setPlayButton] = useState(false);
 
-  const play = function() {
+  const play = function () {
     setPlayButton(true);
-    Tone.Transport.clear();
     toSound(
       convertToPitch(
         convertToBase4(
-          callTone())));
-    
-    // console.log("play")
+          callTone()
+        )
+      )
+    );
   }
 
-  const stop = function() {
-    
-   
-    Tone.Transport.stop()
+  const stop = function () {
+    Tone.Transport.cancel(0)
+    Tone.Transport.clear()
     setPlayButton(false);
-    // console.log("stop")
-    
   }
 
-  const callTone  = () => {
-  const chords = colors.map((color) => {
-    let hexValue = color.replace(' ', '').substring(1, 7)
-    console.log(hexValue)
-    let newArray = [];
+  const callTone = () => {
+    const chords = colors.map((color) => {
+      // let hexValue = color.replace(' ', '').substring(1, 7)
+      let hexValue = color.trim().substring(1, 7)
+      console.log(hexValue)
+      let newArray = [];
       for (let x = 0, y = 2; x <= 4; x += 2, y += 2) {
-        // let tone = Math.floor(
-        //   (parseInt((hexValue.slice(x, y)), 16) / 255) * 100)
-          // console.log(hexValue.slice(x, y))
         newArray.push(
-                      (Math.floor(
-                              (parseInt((hexValue.slice(x, y)), 16) / 255) * 100)
-                      )
-                );                 
-        }
+          (Math.floor(
+            (parseInt((hexValue.slice(x, y)), 16) / 255) * 100)
+          )
+        );
+      }
       return newArray
-  });
-  console.log(chords)
+    });
+    console.log(chords)
     return chords
-    
- 
-};
 
-const convertToBase4 = (chords) => {
-  let newArray = [];
 
-  // iterate through the entire array
-  for(let x=0; x < chords.length; x++) {
+  };
+
+  const convertToBase4 = (chords) => {
+    let newArray = [];
+
+    // iterate through the entire array
+    for (let x = 0; x < chords.length; x++) {
 
       newArray[x] = [];
 
       // iterate through the subarray values
-      for(let y=0; y < chords[x].length; y++) {
+      for (let y = 0; y < chords[x].length; y++) {
 
-          if(chords[x][y] < 24) {
-              newArray[x].push(0)
-          }
-          else if(chords[x][y] >= 25 && chords[x][y] < 49) {
-              newArray[x].push(1)
-          }
-          else if(chords[x][y] >= 50 && chords[x][y] < 74) {
-              newArray[x].push(2)
-          }
-          else {
-              newArray[x].push(3)
-          }
+        if (chords[x][y] < 24) {
+          newArray[x].push(0)
+        }
+        else if (chords[x][y] >= 25 && chords[x][y] < 49) {
+          newArray[x].push(1)
+        }
+        else if (chords[x][y] >= 50 && chords[x][y] < 74) {
+          newArray[x].push(2)
+        }
+        else {
+          newArray[x].push(3)
+        }
       }
+    }
+
+    console.log(newArray)
+    return newArray
   }
-  
-  console.log(newArray)
-  return newArray
-}
 
-const convertToPitch = (base4Chords) => {
-  let newArray = [];
-  
-  for (let x=0; x < base4Chords.length; x++ ) {
-    newArray[x] = [];
+  const convertToPitch = (base4Chords) => {
+    let newArray = [];
 
-      let lowRegister = base4Chords[x][0] 
-      let midRegister = base4Chords[x][1] 
+    for (let x = 0; x < base4Chords.length; x++) {
+      newArray[x] = [];
+
+      let lowRegister = base4Chords[x][0]
+      let midRegister = base4Chords[x][1]
       let highRegister = base4Chords[x][2]
 
       switch (lowRegister) {
@@ -110,143 +105,136 @@ const convertToPitch = (base4Chords) => {
         case 3:
           newArray[x].push('Eb4');
           break;
-          default: console.log('default case')
-        }
-        switch (midRegister) {
-          case 0:
+        default: console.log('default case')
+      }
+      switch (midRegister) {
+        case 0:
           newArray[x].push('E4');
-            break;
-          case 1:
+          break;
+        case 1:
           newArray[x].push('F4');
-            break;
-          case 2:
+          break;
+        case 2:
           newArray[x].push('Gb4');
-            break;
-          case 3:
+          break;
+        case 3:
           newArray[x].push('G4');
           break;
-          default: console.log('default case')
+        default: console.log('default case')
           break;
-        }
-        switch (highRegister) {
-          case 0:
+      }
+      switch (highRegister) {
+        case 0:
           newArray[x].push('Ab4');
-            break;
-          case 1:
+          break;
+        case 1:
           newArray[x].push('A4');
-            break;
-          case 2:
+          break;
+        case 2:
           newArray[x].push('Bb4');
-            break;
-          case 3:
+          break;
+        case 3:
           newArray[x].push('B4');
           break;
-          default: console.log('default case')
-          }
+        default: console.log('default case')
       }
- 
-  return newArray
-}
+    }
 
-const toSound = ((finalChordArray) => {
+    return newArray
+  }
 
+  const toSound = ((finalChordArray) => {
+    // console.log(finalChordArray)
 
-    let low = finalChordArray.map( chord => chord[0])
-    let lowIndex = 0;
-    let mid = finalChordArray.map( chord => chord[1])
-    let midIndex = 0;
-    let high = finalChordArray.map( chord => chord[2])
-    let highIndex = 0;
+    // let bpm = $bpmRange.value;
 
-console.log(low, mid, high);
+    let highNotes = finalChordArray.map(chord => chord[2])
 
+    // let highIndex = 0;
+    let midNotes = finalChordArray.map(chord => chord[1])
 
-const highSynth = new Tone.PolySynth().toDestination();
-const midSynth = new Tone.PolySynth().toDestination();
-const lowSynth = new Tone.PolySynth().toDestination();
+    // let midIndex = 0;
+    let lowNotes = finalChordArray.map(chord => chord[0])
 
-
-    Tone.Transport.scheduleRepeat((time) => {
-      repeat1(time);
-  }, '4n')
-
-  const repeat1 = ((time) =>  {
-    let highVoice = high[highIndex % high.length]
-    highSynth.triggerAttackRelease(highVoice, '4n', time);
-    highIndex++;
-  })
-
-  // ***************************
-
-  Tone.Transport.scheduleRepeat((time) => {
-    repeat2(time);
-}, '4n')
-
-  const repeat2 = ((time) =>  {
-  let midVoice = mid[midIndex % mid.length]
-  midSynth.triggerAttackRelease(midVoice, '4n', time);
-  midIndex++;
-  })
-
-  // ***************************
-
-  Tone.Transport.scheduleRepeat((time) => {
-    repeat3(time);
-}, '4n')
-
-  const repeat3 = ((time) =>  {
-  let lowVoice = low[lowIndex % low.length]
-  lowSynth.triggerAttackRelease(lowVoice, '4n', time);
-  lowIndex++;
-  })
-
-  Tone.Transport.start();
-  // Tone.Transport.stop();
-  // Tone.Transport.pause();
-  Tone.Transport.bpm.value = 30;
-
-  // setTimeout(() => {
-  //   Tone.Transport.stop();
-  // }, 30000)
-
-});
+    // let lowIndex = 0;
 
 
-  useEffect( function() {
+
+    // console.log(lowNotes, midNotes, highNotes);
+
+
+    const highSynth = new Tone.PolySynth().toDestination();
+    const midSynth = new Tone.PolySynth().toDestination();
+    const lowSynth = new Tone.PolySynth().toDestination();
+
+
+    const highVoice = new Tone.Sequence(
+      function (time, note) {
+        highSynth.triggerAttackRelease(note, '4n', time)
+      }, highNotes, '4n');
+
+    const midVoice = new Tone.Sequence(
+      function (time, note) {
+        midSynth.triggerAttackRelease(note, '4n', time)
+      }, midNotes, '4n');
+
+    const lowVoice = new Tone.Sequence(
+      function (time, note) {
+        lowSynth.triggerAttackRelease(note, '4n', time)
+      }, lowNotes, '4n');
+
+
+    highVoice.start();
+    midVoice.start();
+    lowVoice.start();
+
+    // bpmRange.addEventListener('input', function() {
+    //   bpm = bpmRange.value;
+    //   Tone.Transport.bpm.value = bpm;
+    // });
+
+
+    Tone.Transport.bpm.value = 30;
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.start('+0.1');
+  });
+
+
+  useEffect(function () {
 
     axios({
-        url: `https://www.rijksmuseum.nl/api/en/collection/${paintingForm}`,
-        params: {
-          key: 'ATefFwWi',
-        }
-      }).then( (artData) => {
-        
-        // console.log(artData)
+      url: `https://www.rijksmuseum.nl/api/en/collection/${paintingForm}`,
+      params: {
+        key: 'ATefFwWi',
+      }
+    }).then((artData) => {
 
-          setPainting(artData.data.artObject.webImage.url)
-      
-          setTitle(artData.data.artObject.longTitle)
+      // console.log(artData)
 
-          let colorPercentages = [];
-          let hexColors = [];
-          
-          for ( let i = 0; i < (artData.data.artObject.colors.length); i++) {
-            
-            colorPercentages.push(artData.data.artObject.colors[i].percentage);
-            hexColors.push(artData.data.artObject.colors[i].hex);
-            
-          } 
+      setPainting(artData.data.artObject.webImage.url)
 
-          // setVolume(colorPercentages)
-          // console.log(colorPercentages)
-          setColors(hexColors)
-          // console.log(hexColors)
+      setTitle(artData.data.artObject.longTitle)
 
-        })
-      
+      let colorPercentages = [];
+      let hexColors = [];
+
+      for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
+
+        colorPercentages.push(artData.data.artObject.colors[i].percentage);
+        hexColors.push(artData.data.artObject.colors[i].hex);
+
+      }
+
+      // setVolume(colorPercentages)
+      // console.log(colorPercentages)
+      setColors(hexColors)
+      // console.log(hexColors)
+
+    })
+
   }, [paintingForm]);
 
-  const selectPainting = function(event, chosenPainting) {
+  const selectPainting = function (event, chosenPainting) {
     event.preventDefault();
     // console.log(artData)
     setPaintingForm(chosenPainting);
@@ -254,7 +242,7 @@ const lowSynth = new Tone.PolySynth().toDestination();
 
   return (
     <div className='wrapper'>
-      <h1>Colours to Chords:</h1> 
+      <h1>Colours to Chords:</h1>
       <div>
         <PaintingForm handleSubmit={selectPainting} />
         <img className='painting' src={painting} alt={title} />
