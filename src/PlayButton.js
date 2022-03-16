@@ -1,10 +1,10 @@
-//PlayButton
 
 function PlayButton(props) {
+  
     return (
-        <div className="playButtons">
+        <div className="playControls">
             <button className="play"
-                onClick={props.playButton}>Play
+                onClick={props.playButton}>Play/Shuffle Registers
             </button>
             <button  className="stop"
                 onClick={props.stopButton}>Stop

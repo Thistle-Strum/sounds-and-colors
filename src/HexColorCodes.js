@@ -1,17 +1,16 @@
 
 
     function HexColorCodes(props) {
-        console.log(props)
+        // console.log(props)
         return(      
             <ul className="colors">
-                { props.handleHexCodes.map(function(colorCode) {
-                    return(
-                        
+                { props.listHexCodes.map( function(hexCode) {
+                    return(                      
                         <li style={{
-                            backgroundColor: `${colorCode}`}
+                            backgroundColor: `${hexCode}`}
                         }
                         >   
-                            <div className="hexColorCodes"> {colorCode} </div>  
+                            <div className="hexColorCodes"> {hexCode} </div>  
                         </li>
                     )
                 })}
