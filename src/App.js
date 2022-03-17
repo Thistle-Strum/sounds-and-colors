@@ -8,6 +8,14 @@ import HexColorCodes from './HexColorCodes';
 import DisplayNotes from './DisplayNotes';
 import Tempo from './Tempo'
 
+// Hello!  Thank you for looking at this! Unfortunately, I 
+// I did not have enough time to make a more solid interface it often fails
+// while oscillating between the update tempo/play/stop buttons.  Can you 
+// offer any advice to address this (I have a hunch it has to do with the
+// two Onsubmit functions).  Also, I also didn't have enough 
+// time to address error handling.  I would greatly appreciate all advice in this 
+// area. 
+
 function App() {
 
   const [ paintingForm, setPaintingForm ] = useState([])
@@ -16,11 +24,11 @@ function App() {
   const [ colors, setColors ] = useState([]);
   const [ notes, setNotes ] = useState([]);
   const [ playButton, setPlayButton ] = useState(false);
-  const [ tempo, setTempo ] = useState('400');
+  const [ tempo, setTempo ] = useState('');
   
 
   const play = function () {
-    Tone.Transport.clear(0);
+    // Tone.Transport.clear(0);
     Tone.Transport.cancel(0)
     setPlayButton(true);
     toSound(
@@ -34,7 +42,7 @@ function App() {
 
   const stop = function () {
     Tone.Transport.cancel(0);
-    Tone.Transport.clear(0);
+    Tone.Transport.clear();
     setPlayButton(false);
   }
 
@@ -80,7 +88,6 @@ function App() {
       }
     }
 
-    console.log(base4Chords)
     return base4Chords
   }
 
@@ -221,7 +228,7 @@ function App() {
 
   const selectTempo = function (event, chosenBpm) {
     event.preventDefault();
-    console.log(chosenBpm)
+ 
     setTempo(chosenBpm);
   }
 

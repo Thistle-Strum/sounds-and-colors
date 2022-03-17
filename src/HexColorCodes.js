@@ -1,7 +1,7 @@
 
 
     function HexColorCodes(props) {
-        // console.log(props)
+
         return(      
             <ul className="colors">
                 { props.listHexCodes.map( function(hexCode) {
@@ -20,4 +20,3 @@
     
 export default HexColorCodes
 
-// <div className="color" aria-hidden="true"></div>
