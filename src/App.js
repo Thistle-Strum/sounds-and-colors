@@ -5,16 +5,23 @@ import { useState, useEffect } from 'react';
 import PlayButton from './PlayButton';
 import PaintingForm from './PaintingForm'
 import HexColorCodes from './HexColorCodes';
+import DisplayNotes from './DisplayNotes';
+import Tempo from './Tempo'
 
 function App() {
 
-  const [paintingForm, setPaintingForm] = useState([])
-  const [painting, setPainting] = useState([]);
-  const [title, setTitle] = useState([]);
-  const [colors, setColors] = useState([]);
-  const [playButton, setPlayButton] = useState(false);
+  const [ paintingForm, setPaintingForm ] = useState([])
+  const [ painting, setPainting ] = useState([]);
+  const [ title, setTitle ] = useState([]);
+  const [ colors, setColors ] = useState([]);
+  const [ notes, setNotes ] = useState([]);
+  const [ playButton, setPlayButton ] = useState(false);
+  const [ tempo, setTempo ] = useState('250');
+  
 
   const play = function () {
+    // Tone.Transport.clear(0);
+    // Tone.Transport.cancel(0)
     setPlayButton(true);
     toSound(
       convertToPitch(
@@ -26,8 +33,8 @@ function App() {
   }
 
   const stop = function () {
-    Tone.Transport.cancel(0)
-    Tone.Transport.clear()
+    Tone.Transport.cancel(0);
+    // Tone.Transport.clear(0);
     setPlayButton(false);
   }
 
@@ -35,7 +42,7 @@ function App() {
     const chords = colors.map((color) => {
       // let hexValue = color.replace(' ', '').substring(1, 7)
       let hexValue = color.trim().substring(1, 7)
-      console.log(hexValue)
+      // console.log(hexValue)
       let newArray = [];
       for (let x = 0, y = 2; x <= 4; x += 2, y += 2) {
         newArray.push(
@@ -46,47 +53,48 @@ function App() {
       }
       return newArray
     });
-    console.log(chords)
+    // console.log(chords)
     return chords
 
 
   };
 
   const convertToBase4 = (chords) => {
-    let newArray = [];
+    let base4Chords = [];
 
     // iterate through the entire array
     for (let x = 0; x < chords.length; x++) {
 
-      newArray[x] = [];
+      base4Chords[x] = [];
 
       // iterate through the subarray values
       for (let y = 0; y < chords[x].length; y++) {
 
         if (chords[x][y] < 24) {
-          newArray[x].push(0)
+          base4Chords[x].push(0)
         }
         else if (chords[x][y] >= 25 && chords[x][y] < 49) {
-          newArray[x].push(1)
+          base4Chords[x].push(1)
         }
         else if (chords[x][y] >= 50 && chords[x][y] < 74) {
-          newArray[x].push(2)
+          base4Chords[x].push(2)
         }
         else {
-          newArray[x].push(3)
+          base4Chords[x].push(3)
         }
       }
     }
 
-    console.log(newArray)
-    return newArray
+    console.log(base4Chords)
+    return base4Chords
   }
 
+  
   const convertToPitch = (base4Chords) => {
-    let newArray = [];
+    let finalChordArray = [];
 
     for (let x = 0; x < base4Chords.length; x++) {
-      newArray[x] = [];
+      finalChordArray[x] = [];
 
       let lowRegister = base4Chords[x][0]
       let midRegister = base4Chords[x][1]
@@ -94,68 +102,68 @@ function App() {
 
       switch (lowRegister) {
         case 0:
-          newArray[x].push('C4');
+          finalChordArray[x].push(`C${Math.floor(Math.random() * 3) + 1}`);
           break;
         case 1:
-          newArray[x].push('Db4');
+          finalChordArray[x].push(`Db${Math.floor(Math.random() * 3) + 1}`);
           break;
         case 2:
-          newArray[x].push('D4');
+          finalChordArray[x].push(`D${Math.floor(Math.random() * 3) + 1}`);
           break;
         case 3:
-          newArray[x].push('Eb4');
+          finalChordArray[x].push(`E${Math.floor(Math.random() * 3) + 1}`);
           break;
         default: console.log('default case')
       }
       switch (midRegister) {
         case 0:
-          newArray[x].push('E4');
+          finalChordArray[x].push(`E${Math.floor(Math.random() * 4) + 1}`);
           break;
         case 1:
-          newArray[x].push('F4');
+          finalChordArray[x].push(`F${Math.floor(Math.random() * 4) + 1}`);
           break;
         case 2:
-          newArray[x].push('Gb4');
+          finalChordArray[x].push(`Gb${Math.floor(Math.random() * 4) + 1}`);
           break;
         case 3:
-          newArray[x].push('G4');
+          finalChordArray[x].push(`G${Math.floor(Math.random() * 4) + 1}`);
           break;
         default: console.log('default case')
           break;
       }
       switch (highRegister) {
         case 0:
-          newArray[x].push('Ab4');
+          finalChordArray[x].push(`Ab${Math.floor(Math.random() * 4) + 1}`);
           break;
         case 1:
-          newArray[x].push('A4');
+          finalChordArray[x].push(`A${Math.floor(Math.random() * 4) + 1}`);
           break;
         case 2:
-          newArray[x].push('Bb4');
+          finalChordArray[x].push(`Bb${Math.floor(Math.random() * 4) + 1}`);
           break;
         case 3:
-          newArray[x].push('B4');
+          finalChordArray[x].push(`B${Math.floor(Math.random() * 4) + 1}`);
           break;
         default: console.log('default case')
       }
     }
 
-    return newArray
+    return finalChordArray
   }
 
   const toSound = ((finalChordArray) => {
-    // console.log(finalChordArray)
-
+    console.log(finalChordArray)
+      setNotes(finalChordArray)
     // let bpm = $bpmRange.value;
 
     let highNotes = finalChordArray.map(chord => chord[2])
-
+      // setHighNotes(highNotes)
     // let highIndex = 0;
     let midNotes = finalChordArray.map(chord => chord[1])
-
+      // setMidNotes(midNotes)
     // let midIndex = 0;
     let lowNotes = finalChordArray.map(chord => chord[0])
-
+      // setLowNotes(lowNotes)
     // let lowIndex = 0;
 
 
@@ -193,10 +201,11 @@ function App() {
     //   Tone.Transport.bpm.value = bpm;
     // });
 
-
-    Tone.Transport.bpm.value = 30;
+    Tone.Transport.bpm.value = tempo;
     Tone.Transport.loopStart = 0;
     Tone.Transport.start('+0.1');
+
+ 
   });
 
 
@@ -236,23 +245,35 @@ function App() {
 
   const selectPainting = function (event, chosenPainting) {
     event.preventDefault();
-    // console.log(artData)
     setPaintingForm(chosenPainting);
   }
 
+  const selectTempo = function (event, chosenBpm) {
+    event.preventDefault();
+    console.log(chosenBpm)
+    setTempo(chosenBpm);
+  }
+
   return (
-    <div className='wrapper'>
-      <h1>Colours to Chords:</h1>
-      <div>
+    <div className="wrapper">
+      <div className="onPageLoad">
+        <h1>Color in Sound</h1>
         <PaintingForm handleSubmit={selectPainting} />
-        <img className='painting' src={painting} alt={title} />
-        <h2>{title}</h2>
-        <HexColorCodes handleHexCodes={colors} />
+        <Tempo handleSubmit={selectTempo} />
         <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
-      </div>
+        </div>
+        <HexColorCodes listHexCodes={colors} />
+        <DisplayNotes listNotes={notes} />
+        <h2>{title}</h2>
+        <div className='paintingContainer' >
+          <img src={painting} alt={title} />
+        </div>
     </div>
   );
 }
 
 export default App;
 
+
+// <TransposeOctave handleTransposition={transposeOctave} />
+// className='painting'
