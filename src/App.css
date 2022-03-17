@@ -41,6 +41,12 @@ ul {
   list-style: none;
 }
 
+ a {
+  color: black;
+  text-decoration: none;
+  margin: 0 auto;
+}
+
 img {
   display: block;
   width: 100%;
@@ -62,32 +68,42 @@ button {
   align-items: center;
   border: black 2px solid;
   border-radius: 50%;
-  margin: 10% 33% 10% 33%;
+  margin: 15% 33% 4% 33%;
   padding: 4%;
   background-color: white;
   -webkit-animation-name: animate1; /* Chrome, Safari, Opera */
   -webkit-animation-duration: 7s; /* Chrome, Safari, Opera */
   animation-name: animate1;
-  animation-duration: 7s;
+  animation-duration: 15s;
 }
 
 @-webkit-keyframes animate1 {
-  0%   {background-color: rgb(154, 148, 148);}
-  20%  {background-color: rgb(150, 136, 172);}
-  40%  {background-color: rgb(142, 122, 67);}
-  60% {background-color: rgb(124, 49, 28)}
-  80% {background-color: rgb(70, 127, 140)}
-  100% {background-color: rgb(223, 233, 245)}
+  0% {background-color: rgb(255, 255, 255)}
+  10% {background-color: rgb(120, 231, 250)}
+  20% {background-color: rgb(34, 44, 239)}
+  30% {background-color: rgb(133, 27, 233)}
+  40% {background-color: rgb(231, 63, 200)}
+  50%   {background-color: rgb(255, 0, 0);}
+  60%  {background-color: rgb(255, 102, 0);}
+  70%  {background-color: rgb(249, 235, 38);}
+  80% {background-color: rgb(63, 167, 47)}
+  90% {background-color: rgb(138, 201, 186)}
+  100% {background-color: rgb(240, 244, 247)}
 }
 
 /* Standard syntax */
 @keyframes animate1 {
-  0%   {background-color: rgb(154, 148, 148);}
-  20%  {background-color: rgb(150, 136, 172);}
-  40%  {background-color: rgb(142, 122, 67);}
-  60% {background-color: rgb(124, 49, 28)}
-  80% {background-color: rgb(70, 127, 140)}
-  100% {background-color: rgb(223, 233, 245)}
+  0% {background-color: rgb(255, 255, 255)}
+  10% {background-color: rgb(120, 231, 250)}
+  20% {background-color: rgb(34, 44, 239)}
+  30% {background-color: rgb(133, 27, 233)}
+  40% {background-color: rgb(231, 63, 200)}
+  50%   {background-color: rgb(255, 0, 0);}
+  60%  {background-color: rgb(255, 102, 0);}
+  70%  {background-color: rgb(249, 235, 38);}
+  80% {background-color: rgb(63, 167, 47)}
+  90% {background-color: rgb(138, 201, 186)}
+  100% {background-color: rgb(240, 244, 247)}
 }
 
 .selectMenu {
@@ -103,6 +119,7 @@ button {
 .playControls {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .playControls button {
@@ -113,6 +130,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
   list-style: none;
   text-align: center;
   margin: 35px 0 10px 0;
@@ -135,6 +153,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
     
 .notes li {
@@ -143,4 +162,36 @@ button {
   padding: 0 12px;
 }
 
+footer {
+  text-align: center;
+}
 
+@media (max-width: 1420px) {
+  .playControls button {
+    margin: 0px 5px 5px 5px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .onPageLoad {
+    margin: 15% 25% 4% 25%;
+  }
+}
+
+@media (max-width: 780px) {
+  .colors li {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .onPageLoad {
+    margin: 15% 15% 4% 15%;
+  }
+}

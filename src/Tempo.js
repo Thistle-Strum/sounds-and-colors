@@ -21,7 +21,7 @@ function Tempo (props) {
                 onChange={ handleChange }
                 value={selectValue}
             >
-                <option value="placeholder" disabled>Select a tempo:</option>
+                <option value="placeholder" disabled>Select tempo:</option>
                 <option value="20">20bpm</option>
                 <option value="30">30bpm</option>
                 <option value="40">40bpm</option>
@@ -62,7 +62,7 @@ function Tempo (props) {
                 <option value="390">390bpm</option>
                 <option value="400">400bpm</option> 
             </select>
-            <button>Update Tempo</button>
+            <button>Update tempo</button>
         </form>
     )
 }

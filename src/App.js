@@ -42,9 +42,7 @@ function App() {
   
   const callTone = () => {
     const chords = colors.map((color) => {
-      // let hexValue = color.replace(' ', '').substring(1, 7)
       let hexValue = color.trim().substring(1, 7)
-      // console.log(hexValue)
       let newArray = [];
       for (let x = 0, y = 2; x <= 4; x += 2, y += 2) {
         newArray.push(
@@ -55,21 +53,16 @@ function App() {
       }
       return newArray
     });
-    // console.log(chords)
     return chords
-
-
   };
 
   const convertToBase4 = (chords) => {
     let base4Chords = [];
 
-    // iterate through the entire array
     for (let x = 0; x < chords.length; x++) {
 
       base4Chords[x] = [];
 
-      // iterate through the subarray values
       for (let y = 0; y < chords[x].length; y++) {
 
         if (chords[x][y] < 24) {
@@ -154,24 +147,12 @@ function App() {
   }
 
   const toSound = ((finalChordArray) => {
-    console.log(finalChordArray)
+
       setNotes(finalChordArray)
-    // let bpm = $bpmRange.value;
-
+  
     let highNotes = finalChordArray.map(chord => chord[2])
-      // setHighNotes(highNotes)
-    // let highIndex = 0;
     let midNotes = finalChordArray.map(chord => chord[1])
-      // setMidNotes(midNotes)
-    // let midIndex = 0;
     let lowNotes = finalChordArray.map(chord => chord[0])
-      // setLowNotes(lowNotes)
-    // let lowIndex = 0;
-
-
-
-    // console.log(lowNotes, midNotes, highNotes);
-
 
     const highSynth = new Tone.PolySynth().toDestination();
     const midSynth = new Tone.PolySynth().toDestination();
@@ -198,16 +179,9 @@ function App() {
     midVoice.start();
     lowVoice.start();
 
-    // bpmRange.addEventListener('input', function() {
-    //   bpm = bpmRange.value;
-    //   Tone.Transport.bpm.value = bpm;
-    // });
-
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.loopStart = 0;
     Tone.Transport.start('+0.1');
-
- 
   });
 
 
@@ -219,8 +193,6 @@ function App() {
         key: 'ATefFwWi',
       }
     }).then((artData) => {
-
-      // console.log(artData)
 
       setPainting(artData.data.artObject.webImage.url)
 
@@ -236,10 +208,7 @@ function App() {
 
       }
 
-      // setVolume(colorPercentages)
-      // console.log(colorPercentages)
       setColors(hexColors)
-      // console.log(hexColors)
 
     })
 
@@ -259,7 +228,7 @@ function App() {
   return (
     <div className="wrapper">
       <div className="onPageLoad">
-        <h1>Color in Sound</h1>
+        <h1>Color as Sound</h1>
         <PaintingForm handleSubmit={selectPainting} />
         <Tempo handleSubmit={selectTempo} />
         <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
@@ -270,12 +239,9 @@ function App() {
         <div className='paintingContainer' >
           <img src={painting} alt={title} />
         </div>
+        <footer><a href="https://www.rijksmuseum.nl/en" target="_blank" rel="noreferrer">Paintings courtesy of the Rijks Museum API</a></footer>
     </div>
   );
 }
 
 export default App;
-
-
-// <TransposeOctave handleTransposition={transposeOctave} />
-// className='painting'
