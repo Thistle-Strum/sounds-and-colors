@@ -16,12 +16,12 @@ function App() {
   const [ colors, setColors ] = useState([]);
   const [ notes, setNotes ] = useState([]);
   const [ playButton, setPlayButton ] = useState(false);
-  const [ tempo, setTempo ] = useState('250');
+  const [ tempo, setTempo ] = useState('400');
   
 
   const play = function () {
-    // Tone.Transport.clear(0);
-    // Tone.Transport.cancel(0)
+    Tone.Transport.clear(0);
+    Tone.Transport.cancel(0)
     setPlayButton(true);
     toSound(
       convertToPitch(
@@ -34,10 +34,12 @@ function App() {
 
   const stop = function () {
     Tone.Transport.cancel(0);
-    // Tone.Transport.clear(0);
+    Tone.Transport.clear(0);
     setPlayButton(false);
   }
 
+  
+  
   const callTone = () => {
     const chords = colors.map((color) => {
       // let hexValue = color.replace(' ', '').substring(1, 7)
@@ -261,7 +263,7 @@ function App() {
         <PaintingForm handleSubmit={selectPainting} />
         <Tempo handleSubmit={selectTempo} />
         <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
-        </div>
+      </div>
         <HexColorCodes listHexCodes={colors} />
         <DisplayNotes listNotes={notes} />
         <h2>{title}</h2>
