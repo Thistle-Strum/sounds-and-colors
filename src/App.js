@@ -28,9 +28,12 @@ function App() {
   
 
   const play = function () {
-    // Tone.Transport.clear(0);
+    Tone.Transport.stop()
     Tone.Transport.cancel(0)
     setPlayButton(true);
+    
+    // Tone.context = new AudioContext()
+    
     toSound(
       convertToPitch(
         convertToBase4(
@@ -41,13 +44,12 @@ function App() {
   }
 
   const stop = function () {
+    Tone.Transport.stop()
     Tone.Transport.cancel(0);
-    Tone.Transport.clear();
     setPlayButton(false);
   }
 
-  
-  
+  // convertHexCodeToPercentage
   const callTone = () => {
     const chords = colors.map((color) => {
       let hexValue = color.trim().substring(1, 7)
@@ -64,6 +66,7 @@ function App() {
     return chords
   };
 
+  // convert percentage To one of four positions for each color c, db, d, eb/1-24/25-49/50-74/75-99 // e f gb g -> 0 1 2 3
   const convertToBase4 = (chords) => {
     let base4Chords = [];
 
@@ -91,7 +94,7 @@ function App() {
     return base4Chords
   }
 
-  
+
   const convertToPitch = (base4Chords) => {
     let finalChordArray = [];
 
@@ -113,7 +116,7 @@ function App() {
           finalChordArray[x].push(`D${Math.floor(Math.random() * 3) + 1}`);
           break;
         case 3:
-          finalChordArray[x].push(`E${Math.floor(Math.random() * 3) + 1}`);
+          finalChordArray[x].push(`Eb${Math.floor(Math.random() * 3) + 1}`);
           break;
         default: console.log('default case')
       }
@@ -154,6 +157,12 @@ function App() {
   }
 
   const toSound = ((finalChordArray) => {
+    
+    Tone.Transport.bpm.value = tempo;
+    Tone.Transport.loopStart = 0;
+    // Tone.Transport.start(0);
+    Tone.Transport.start('+0.1');
+
 
       setNotes(finalChordArray)
   
@@ -186,9 +195,7 @@ function App() {
     midVoice.start();
     lowVoice.start();
 
-    Tone.Transport.bpm.value = tempo;
-    Tone.Transport.loopStart = 0;
-    Tone.Transport.start('+0.1');
+    
   });
 
 
@@ -224,12 +231,13 @@ function App() {
   const selectPainting = function (event, chosenPainting) {
     event.preventDefault();
     setPaintingForm(chosenPainting);
+    // Tone.Transport.cancel(0);
   }
 
   const selectTempo = function (event, chosenBpm) {
     event.preventDefault();
- 
     setTempo(chosenBpm);
+    // Tone.Transport.cancel(0);
   }
 
   return (

@@ -29,7 +29,8 @@ body{
  }
 
 h1 {
-  margin: 20px 0 10px 0;
+  margin: 0px 0 10px 0;
+  line-height: 2.5rem;
 }
 
 h2 {
@@ -53,12 +54,16 @@ img {
 }
 
 select {
+  font-size: clamp(1rem, 1.75vw, 2rem);
   padding: 0 5px;
+  margin-bottom: 5px;
+  padding: 3px 8px 0 8px;
 }
 
 button {
+  font-size: clamp(1rem, 1.75vw, 2rem);
   margin: 10px 5px;
-  padding: 0 8px;
+  padding: 3px 8px 0 8px;
 }
 
 .onPageLoad {
@@ -123,7 +128,7 @@ button {
 }
 
 .playControls button {
-  margin: 0px 5px 30px 5px;
+  margin: 0px 5px 5px 5px;
 }
 
 .colors {
@@ -163,7 +168,9 @@ button {
 }
 
 footer {
+  font-size: clamp(1rem, 1.75vw, 2rem);
   text-align: center;
+  padding: 0 0 300px 0;
 }
 
 @media (max-width: 1420px) {
@@ -172,9 +179,9 @@ footer {
   }
 }
 
-@media (max-width: 1120px) {
-  .onPageLoad {
-    margin: 15% 25% 4% 25%;
+@media (max-width: 900px) {
+  .playControls .play {
+    width: 113px;
   }
 }
 

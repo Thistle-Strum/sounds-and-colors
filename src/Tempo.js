@@ -14,11 +14,12 @@ function Tempo (props) {
     }
     
     return (
-        <form className='selectMenu' action="" onSubmit={ handleUserSelect }>
+        <div>
             <select 
                 id="Tempo" 
                 name="Tempo"
                 onChange={ handleChange }
+                onClick={ handleUserSelect}
                 value={selectValue}
             >
                 <option value="placeholder" disabled>Select tempo:</option>
@@ -62,8 +63,7 @@ function Tempo (props) {
                 <option value="390">390bpm</option>
                 <option value="400">400bpm</option> 
             </select>
-            <button>Update tempo</button>
-        </form>
+        </div>
     )
 }
 
