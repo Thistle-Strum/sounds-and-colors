@@ -5,7 +5,6 @@ function Tempo (props) {
     const [ selectValue, setSelectValue ] = useState('placeholder');
 
     const handleChange = function(event) {
-
         setSelectValue(event.target.value);
     }
 
