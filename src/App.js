@@ -149,7 +149,7 @@ function App() {
 
       switch (lowRegister) {
         case 0:
-          finalChordArray[x].push(`C${Math.floor(Math.random() * 3) + 1}`);
+          finalChordArray[x].push(`C${Math.floor(Math.random() * 3) + 2}`);
           break;
         case 1:
           finalChordArray[x].push(`Db${Math.floor(Math.random() * 3) + 2}`);
@@ -305,7 +305,7 @@ function App() {
   return (
     <div className="wrapper">
       <div className="onPageLoad">
-        <h1>Colors and Sound</h1>
+        <h1>Colour Sounds</h1>
         <PaintingForm handleSubmit={selectPainting} />
         <Mode handleMode={selectMode}/>
         <Tempo handleSubmit={selectTempo} />
