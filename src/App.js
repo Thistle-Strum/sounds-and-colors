@@ -19,8 +19,10 @@ function App() {
   const [ scale, setScale ] = useState([]);
   const [ notes, setNotes ] = useState([]);
   const [ playButton, setPlayButton ] = useState(false);
-  const [ tempo, setTempo ] = useState('');
+  const [ tempo, setTempo ] = useState('100');
   
+  // document.querySelector('button')?.addEventListener('click', async () => {
+  //   await Tone.start()
 
   const play = function () {
     Tone.Transport.stop()
@@ -35,7 +37,7 @@ function App() {
         )
       );
     }
-
+    
   const stop = function () {
     Tone.Transport.stop()
     Tone.Transport.cancel(0);
@@ -120,10 +122,6 @@ function App() {
     }
     // console.log(base12Chords)
     return base12Chords.map( function(currentChord) {
-            // let ionian = [0,2,4,5,7,9,11]
-
- 
-
 
           return currentChord.map((note) => { 
           //  return ionian.includes(note) ? note : null
@@ -196,17 +194,13 @@ function App() {
     }
     console.log(finalChordArray)
     return finalChordArray
-    
   }
-
-
-
 
   const toSound = ((finalChordArray) => {
     console.log(finalChordArray)
 
     Tone.Transport.bpm.value = tempo;
-    Tone.Transport.loopStart = 0;
+    // Tone.Transport.loopStart = 0;
     Tone.Transport.start('+0.1');
 
 
@@ -236,12 +230,26 @@ function App() {
         lowSynth.triggerAttackRelease(note, '4n', time)
       }, lowNotes, '4n');
 
+    //   const highVoice = new Tone.Loop(
+    //   time => {
+    //     highSynth.triggerAttackRelease(highNotes, '4n', time)
+    //   }, '4n').start(0);
+
+    // const midVoice = new Tone.Loop(
+    //   time => {
+    //     midSynth.triggerAttackRelease(midNotes, '4n', time)
+    //   }, '4n').start(0);
+
+    // const lowVoice = new Tone.Loop(
+    //   time => {
+    //     lowSynth.triggerAttackRelease(lowNotes, '4n', time)
+    //   }, '4n').start(0);
+
+
 
     highVoice.start();
     midVoice.start();
     lowVoice.start();
-
-    
   });
 
 
@@ -282,7 +290,7 @@ function App() {
 
   const selectTempo = function (event, chosenBpm) {
     event.preventDefault();
-    setTempo(chosenBpm);
+    setTempo(chosenBpm)
     // Tone.Transport.cancel(0);
   }
 
@@ -298,14 +306,14 @@ function App() {
     chosenScale === 'whole-tone' ? setScale([0, 2, 4, 6, 8, 10]) :
     chosenScale === 'half-whole' ? setScale([0, 2, 3, 5, 6, 8, 9, 11]) :
     chosenScale === 'whole-half' ? setScale([0, 1, 3, 4, 6, 7, 9, 10]) :
-    chosenScale === 'chormatic' ? setScale([0,1,2,3,4,5,6,7,8,9,10, 11])
-    : setScale([0,1,2,3,4,5,6,7,8,9,10, 11])
+    chosenScale === 'chormatic' ? setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+    : setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
   }
 
   return (
     <div className="wrapper">
       <div className="onPageLoad">
-        <h1>Colour Sounds</h1>
+        <h1>Sounds and Colors</h1>
         <PaintingForm handleSubmit={selectPainting} />
         <Mode handleMode={selectMode}/>
         <Tempo handleSubmit={selectTempo} />

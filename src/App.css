@@ -15,6 +15,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 body{
   font-size: 125%;
+  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
 }
 
 .wrapper {
