@@ -6,7 +6,7 @@
             <ul className="colors">
                 { props.listHexCodes.map( function(hexCode) {
                     return(                      
-                        <li style={{
+                        <li key={`${hexCode}`} style={{
                             backgroundColor: `${hexCode}`}
                         }
                         >   

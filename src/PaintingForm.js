@@ -4,21 +4,22 @@ function PaintingForm (props) {
 
     const [ selectValue, setSelectValue ] = useState('placeholder');
 
-
     const handleChange = function(event) {
-        console.log(event.target.value)
-        setSelectValue(event.target.value);
-        }
-
+        // console.log(event.target.value)
+        setSelectValue(event.target.value)
+    
+    };
+    
     const handleUserSelect = function(event) {
         props.handleSubmit(event, selectValue);
         }
-    
+
     return (
        <div>
             <select 
                 id="PaintingForm" 
                 name="PaintingForm"               
+                // onChange={ handleChange } 
                 onChange={ handleChange } 
                 onClick={ handleUserSelect }
                 value={selectValue}

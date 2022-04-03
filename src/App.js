@@ -21,13 +21,18 @@ function App() {
   const [ playButton, setPlayButton ] = useState(false);
   const [ tempo, setTempo ] = useState('100');
   
-  // document.querySelector('button')?.addEventListener('click', async () => {
-  //   await Tone.start()
 
   const play = function () {
-    Tone.Transport.stop()
-    Tone.Transport.cancel(0)
+    // Tone.setContext(new Tone.Context({ latencyHint : "playback" }))
+    // console.log(Tone.Transport.context)
     setPlayButton(true);
+    Tone.Transport.stop()
+    Tone.Transport.cancel()
+    Tone.Transport.clear(0)
+    Tone.start()
+    Tone.Transport.start('+0.1');
+   
+    
     
     toSound(
       convertToPitch(
@@ -39,6 +44,8 @@ function App() {
     }
     
   const stop = function () {
+    
+    // Tone.Transport.dispose()
     Tone.Transport.stop()
     Tone.Transport.cancel(0);
     setPlayButton(false);
@@ -198,10 +205,10 @@ function App() {
 
   const toSound = ((finalChordArray) => {
     console.log(finalChordArray)
-
+   
     Tone.Transport.bpm.value = tempo;
-    // Tone.Transport.loopStart = 0;
-    Tone.Transport.start('+0.1');
+    
+    // Tone.Transport.start('+0.1');
 
 
       setNotes(finalChordArray)
@@ -216,19 +223,34 @@ function App() {
 
 
     const highVoice = new Tone.Sequence(
-      function (time, note) {
-        highSynth.triggerAttackRelease(note, '4n', time)
+      function (time, highNotes) {
+        highSynth.triggerAttackRelease(highNotes, '4n', time)
       }, highNotes, '4n');
 
     const midVoice = new Tone.Sequence(
-      function (time, note) {
-        midSynth.triggerAttackRelease(note, '4n', time)
+      function (time, midNotes) {
+        midSynth.triggerAttackRelease(midNotes, '4n', time)
       }, midNotes, '4n');
 
     const lowVoice = new Tone.Sequence(
-      function (time, note) {
-        lowSynth.triggerAttackRelease(note, '4n', time)
+      function (time, lowNotes) {
+        lowSynth.triggerAttackRelease(lowNotes, '4n', time)
       }, lowNotes, '4n');
+
+    // const highVoice = new Tone.Sequence(
+    //   function (time, note) {
+    //     highSynth.triggerAttackRelease(note, '4n', time)
+    //   }, highNotes, '4n', '+0.9');
+
+    // const midVoice = new Tone.Sequence(
+    //   function (time, note) {
+    //     midSynth.triggerAttackRelease(note, '4n', time)
+    //   }, midNotes, '4n', '+0.9');
+
+    // const lowVoice = new Tone.Sequence(
+    //   function (time, note) {
+    //     lowSynth.triggerAttackRelease(note, '4n', time)
+    //   }, lowNotes, '4n', '+0.9');
 
     //   const highVoice = new Tone.Loop(
     //   time => {
@@ -263,35 +285,28 @@ function App() {
     }).then((artData) => {
 
       setPainting(artData.data.artObject.webImage.url)
-
       setTitle(artData.data.artObject.longTitle)
 
       let colorPercentages = [];
       let hexColors = [];
-
+      
       for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
-
         colorPercentages.push(artData.data.artObject.colors[i].percentage);
         hexColors.push(artData.data.artObject.colors[i].hex);
 
       }
-
       setColors(hexColors)
-
     })
-
   }, [paintingForm]);
 
   const selectPainting = function (event, chosenPainting) {
     event.preventDefault();
     setPaintingForm(chosenPainting);
-    // Tone.Transport.cancel(0);
   }
 
   const selectTempo = function (event, chosenBpm) {
     event.preventDefault();
     setTempo(chosenBpm)
-    // Tone.Transport.cancel(0);
   }
 
   const selectMode = function (event, chosenScale) {
@@ -331,3 +346,11 @@ function App() {
 }
 
 export default App;
+
+      // <div className="onPageLoad">
+      //   <h1>Sounds and Colors</h1>
+      //   <PaintingForm handleSubmit={selectPainting} />
+      //   <Mode handleMode={selectMode}/>
+      //   <Tempo handleSubmit={selectTempo} />
+      //   <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
+      // </div>

@@ -4,7 +4,7 @@ function DisplayNotes(props) {
         <ul className="notes">
             { props.listNotes.map( function (triad) {
                 return (
-                    <li>{triad}</li>
+                    <li key={triad} >{triad}</li>
                 )
             })}
         </ul>
