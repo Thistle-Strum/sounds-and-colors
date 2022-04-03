@@ -3,14 +3,18 @@ import * as Tone from 'tone'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import PlayButton from './PlayButton';
-import PaintingForm from './PaintingForm'
+import PaintingSelector from './PaintingSelector'
 import HexColorCodes from './HexColorCodes';
 import DisplayNotes from './DisplayNotes';
 import Tempo from './Tempo'
 import Mode from './Mode'
 
+import { synth } from './synth'
+
 
 function App() {
+
+  document.Tone = Tone;
 
   const [ paintingForm, setPaintingForm ] = useState([])
   const [ painting, setPainting ] = useState([]);
@@ -20,7 +24,7 @@ function App() {
   const [ notes, setNotes ] = useState([]);
   const [ playButton, setPlayButton ] = useState(false);
   const [ tempo, setTempo ] = useState('100');
-  
+  const [ loading, setLoading ] = useState(false);
 
   const play = function () {
     // Tone.setContext(new Tone.Context({ latencyHint : "playback" }))
@@ -211,31 +215,26 @@ function App() {
     // Tone.Transport.start('+0.1');
 
 
-      setNotes(finalChordArray)
+    setNotes(finalChordArray)
   
     let highNotes = finalChordArray.map(chord => chord[2])
     let midNotes = finalChordArray.map(chord => chord[1])
     let lowNotes = finalChordArray.map(chord => chord[0])
 
-    const highSynth = new Tone.PolySynth().toDestination();
-    const midSynth = new Tone.PolySynth().toDestination();
-    const lowSynth = new Tone.PolySynth().toDestination();
+    // const highSynth = new Tone.PolySynth().toDestination();
+    // const midSynth = new Tone.PolySynth().toDestination();
+    // const lowSynth = new Tone.PolySynth().toDestination();
+
+    function playChordSequence(synth, chordSequence) {
+      return new Tone.Sequence(function(time, chord) {
+        synth.triggerAttackRelease(chord, '4n', time)
+      }, chordSequence, '4n')
+    }
 
 
-    const highVoice = new Tone.Sequence(
-      function (time, highNotes) {
-        highSynth.triggerAttackRelease(highNotes, '4n', time)
-      }, highNotes, '4n');
-
-    const midVoice = new Tone.Sequence(
-      function (time, midNotes) {
-        midSynth.triggerAttackRelease(midNotes, '4n', time)
-      }, midNotes, '4n');
-
-    const lowVoice = new Tone.Sequence(
-      function (time, lowNotes) {
-        lowSynth.triggerAttackRelease(lowNotes, '4n', time)
-      }, lowNotes, '4n');
+    const highVoice = playChordSequence(synth, highNotes);
+    const midVoice = playChordSequence(synth, midNotes);
+    const lowVoice = playChordSequence(synth, lowNotes);
 
     // const highVoice = new Tone.Sequence(
     //   function (time, note) {
@@ -276,14 +275,14 @@ function App() {
 
 
   useEffect(function () {
-
+    setLoading(true);
     axios({
       url: `https://www.rijksmuseum.nl/api/en/collection/${paintingForm}`,
       params: {
         key: 'ATefFwWi',
       }
     }).then((artData) => {
-
+      setLoading(false);
       setPainting(artData.data.artObject.webImage.url)
       setTitle(artData.data.artObject.longTitle)
 
@@ -299,8 +298,8 @@ function App() {
     })
   }, [paintingForm]);
 
-  const selectPainting = function (event, chosenPainting) {
-    event.preventDefault();
+  const selectPainting = function (chosenPainting) {
+    console.log('selectPainting()')
     setPaintingForm(chosenPainting);
   }
 
@@ -325,11 +324,11 @@ function App() {
     : setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
   }
 
-  return (
+  return loading ? <div>LOADING</div> : (
     <div className="wrapper">
       <div className="onPageLoad">
         <h1>Sounds and Colors</h1>
-        <PaintingForm handleSubmit={selectPainting} />
+        <PaintingSelector onPaintingChange={selectPainting} />
         <Mode handleMode={selectMode}/>
         <Tempo handleSubmit={selectTempo} />
         <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
