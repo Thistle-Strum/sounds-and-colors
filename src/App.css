@@ -15,7 +15,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 body{
   font-size: 125%;
-  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
+  background: linear-gradient(white, grey, black);
 }
 
 .wrapper {
@@ -67,6 +67,38 @@ button {
   padding: 3px 8px 0 8px;
 }
 
+.loadingContainer {
+  height: 100vh;
+
+  /* width: 2rem;
+  height: 2rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingCircle1,
+.loadingCircle2,
+.loadingCircle3 {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.loadingCircle1 {
+  background-color: red;
+}
+.loadingCircle2 {
+  background-color: green;
+}
+.loadingCircle3 {
+  background-color: blue;
+}
+
+
+
 .onPageLoad {
   display: flex;
   flex-direction: column;
@@ -99,17 +131,17 @@ button {
 
 /* Standard syntax */
 @keyframes animate1 {
-  0% {background-color: rgb(255, 255, 255)}
+  0%  {background-color: rgb(255, 255, 255)}
   10% {background-color: rgb(120, 231, 250)}
   20% {background-color: rgb(34, 44, 239)}
   30% {background-color: rgb(133, 27, 233)}
   40% {background-color: rgb(231, 63, 200)}
-  50%   {background-color: rgb(255, 0, 0);}
-  60%  {background-color: rgb(255, 102, 0);}
-  70%  {background-color: rgb(249, 235, 38);}
+  50% {background-color: rgb(255, 0, 0);}
+  60% {background-color: rgb(255, 102, 0);}
+  70% {background-color: rgb(249, 235, 38);}
   80% {background-color: rgb(63, 167, 47)}
   90% {background-color: rgb(138, 201, 186)}
-  100% {background-color: rgb(240, 244, 247)}
+  100%{background-color: rgb(240, 244, 247)}
 }
 
 .selectMenu {
@@ -171,7 +203,7 @@ button {
 footer {
   font-size: clamp(1rem, 1.75vw, 2rem);
   text-align: center;
-  padding: 0 0 300px 0;
+  padding: 0 0 600px 0;
 }
 
 @media (max-width: 1420px) {

@@ -8,6 +8,7 @@ import HexColorCodes from './HexColorCodes';
 import DisplayNotes from './DisplayNotes';
 import Tempo from './Tempo'
 import Mode from './Mode'
+import LoadingAnimation from './LoadingAnimation';
 
 import { synth } from './synth'
 
@@ -32,7 +33,7 @@ function App() {
     setPlayButton(true);
     Tone.Transport.stop()
     Tone.Transport.cancel()
-    Tone.Transport.clear(0)
+    Tone.Transport.clear()
     Tone.start()
     Tone.Transport.start('+0.1');
    
@@ -49,9 +50,8 @@ function App() {
     
   const stop = function () {
     
-    // Tone.Transport.dispose()
     Tone.Transport.stop()
-    Tone.Transport.cancel(0);
+    Tone.Transport.cancel();
     setPlayButton(false);
   }
 
@@ -208,8 +208,7 @@ function App() {
   }
 
   const toSound = ((finalChordArray) => {
-    console.log(finalChordArray)
-   
+
     Tone.Transport.bpm.value = tempo;
     
     // Tone.Transport.start('+0.1');
@@ -221,10 +220,6 @@ function App() {
     let midNotes = finalChordArray.map(chord => chord[1])
     let lowNotes = finalChordArray.map(chord => chord[0])
 
-    // const highSynth = new Tone.PolySynth().toDestination();
-    // const midSynth = new Tone.PolySynth().toDestination();
-    // const lowSynth = new Tone.PolySynth().toDestination();
-
     function playChordSequence(synth, chordSequence) {
       return new Tone.Sequence(function(time, chord) {
         synth.triggerAttackRelease(chord, '4n', time)
@@ -235,38 +230,6 @@ function App() {
     const highVoice = playChordSequence(synth, highNotes);
     const midVoice = playChordSequence(synth, midNotes);
     const lowVoice = playChordSequence(synth, lowNotes);
-
-    // const highVoice = new Tone.Sequence(
-    //   function (time, note) {
-    //     highSynth.triggerAttackRelease(note, '4n', time)
-    //   }, highNotes, '4n', '+0.9');
-
-    // const midVoice = new Tone.Sequence(
-    //   function (time, note) {
-    //     midSynth.triggerAttackRelease(note, '4n', time)
-    //   }, midNotes, '4n', '+0.9');
-
-    // const lowVoice = new Tone.Sequence(
-    //   function (time, note) {
-    //     lowSynth.triggerAttackRelease(note, '4n', time)
-    //   }, lowNotes, '4n', '+0.9');
-
-    //   const highVoice = new Tone.Loop(
-    //   time => {
-    //     highSynth.triggerAttackRelease(highNotes, '4n', time)
-    //   }, '4n').start(0);
-
-    // const midVoice = new Tone.Loop(
-    //   time => {
-    //     midSynth.triggerAttackRelease(midNotes, '4n', time)
-    //   }, '4n').start(0);
-
-    // const lowVoice = new Tone.Loop(
-    //   time => {
-    //     lowSynth.triggerAttackRelease(lowNotes, '4n', time)
-    //   }, '4n').start(0);
-
-
 
     highVoice.start();
     midVoice.start();
@@ -286,11 +249,11 @@ function App() {
       setPainting(artData.data.artObject.webImage.url)
       setTitle(artData.data.artObject.longTitle)
 
-      let colorPercentages = [];
+      
       let hexColors = [];
       
       for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
-        colorPercentages.push(artData.data.artObject.colors[i].percentage);
+  
         hexColors.push(artData.data.artObject.colors[i].hex);
 
       }
@@ -324,7 +287,10 @@ function App() {
     : setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
   }
 
-  return loading ? <div>LOADING</div> : (
+  return loading ? 
+    <div>
+        <LoadingAnimation />      
+    </div> : (
     <div className="wrapper">
       <div className="onPageLoad">
         <h1>Sounds and Colors</h1>
@@ -345,11 +311,3 @@ function App() {
 }
 
 export default App;
-
-      // <div className="onPageLoad">
-      //   <h1>Sounds and Colors</h1>
-      //   <PaintingForm handleSubmit={selectPainting} />
-      //   <Mode handleMode={selectMode}/>
-      //   <Tempo handleSubmit={selectTempo} />
-      //   <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
-      // </div>
