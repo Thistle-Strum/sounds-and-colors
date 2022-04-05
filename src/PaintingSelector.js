@@ -1,24 +1,20 @@
-import { useState } from "react";
+
 
 function PaintingSelector(props) {
 
-  
- const [ painting, setPainting ] = useState('placeholder')
-  const handleChange = function (event, painting) {
-    event.preventDefault();
-    setPainting(event.target.value);
-    props.onPaintingChange(event.target.value);
+  const handleChange = function (event) {
+   props.onPaintingChange(event.target.value);
   };
 
   return (
     <select
-      id="PaintingForm"
-      name="PaintingForm"
-      onChange={handleChange}
-      value={painting}
+      id="painting"
+      name="painting"
+      onChange={ handleChange }
+      value={props.painting}
     >
       
-      <option value="placeholder" disabled>
+      <option value="placeholder" >
       Select a painting: </option>
       <option value="SK-C-5">The Night Watch</option>
       <option value="SK-C-149">A Mother's Duty</option>

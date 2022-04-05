@@ -1,27 +1,18 @@
-import { useState } from 'react'
 
-function Tempo (props) {
 
-    const [ selectValue, setSelectValue ] = useState('placeholder');
+function TempoSelector (props) {
 
     const handleChange = function(event) {
-        setSelectValue(event.target.value);
+        props.onTempoChange(event.target.value);
     }
 
-    const handleUserSelect = function(event) {
-        props.handleSubmit(event, selectValue);
-    }
-    
     return (
-        <div>
             <select 
-                id="Tempo" 
-                name="Tempo"
+                id="tempo" 
+                name="tempo"
                 onChange={ handleChange }
-                onClick={ handleUserSelect}
-                value={selectValue}
             >
-                <option value="placeholder" disabled>Select tempo:</option>
+                <option value="placeholder" >Select tempo:</option>
                 <option value="20">20bpm</option>
                 <option value="30">30bpm</option>
                 <option value="40">40bpm</option>
@@ -61,10 +52,14 @@ function Tempo (props) {
                 <option value="380">380bpm</option>
                 <option value="390">390bpm</option>
                 <option value="400">400bpm</option> 
-            </select>
-        </div>
+                <option value="410">410bpm</option>
+                <option value="420">420bpm</option>
+                <option value="430">430bpm</option>
+                <option value="440">440bpm</option>
+                <option value="450">450bpm</option>
+            </select>       
     )
 }
 
 
-export default Tempo;
+export default TempoSelector;

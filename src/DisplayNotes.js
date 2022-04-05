@@ -4,7 +4,7 @@ function DisplayNotes(props) {
         <ul className="notes">
             { props.listNotes.map( function (triad) {
                 return (
-                    <li key={triad} >{triad}</li>
+                    <li key={Math.random()} >{triad}</li>
                 )
             })}
         </ul>

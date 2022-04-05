@@ -1,26 +1,19 @@
-import { useState } from 'react'
 
-function Mode (props) {
 
-    const [ mode, setMode ] = useState('placeholder');
+function ScaleSelector (props) {
 
     const handleChange = function(event) {
-        setMode(event.target.value);
-    } 
-
-    const handleUserSelect = function(event) {
-        props.handleMode(event, mode);
-    }
+        props.onScaleChange(event.target.value)
+    };
 
     return (
-        <div>
-            <select name="mode" 
-                    id="mode"
-                    onChange={handleChange}
-                    onClick={handleUserSelect}
-                    value={mode}
-                    >
-                <option value="placeholder" disabled>Select filter:</option>
+            <select 
+                name="scale"     
+                id="scale"
+                onChange={ handleChange }
+                value={props.scaleName}
+            >
+                <option value="placeholder">Select filter:</option>
                 <option value="ionian">ionian</option>
                 <option value="dorian">dorian</option>
                 <option value="phrygian">phrygian</option>
@@ -33,8 +26,8 @@ function Mode (props) {
                 <option value="whole-half">whole-half</option>
                 <option value="chromatic">chromatic</option>
             </select>
-        </div>
+       
     )
 }
 
-export default Mode;
+export default ScaleSelector;

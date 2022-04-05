@@ -2,34 +2,31 @@ import './App.css';
 import * as Tone from 'tone'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { synth } from './synth'
 import PlayButton from './PlayButton';
 import PaintingSelector from './PaintingSelector'
 import HexColorCodes from './HexColorCodes';
 import DisplayNotes from './DisplayNotes';
-import Tempo from './Tempo'
-import Mode from './Mode'
+import TempoSelector from './TempoSelector'
+import ScaleSelector from './ScaleSelector'
 import LoadingAnimation from './LoadingAnimation';
-
-import { synth } from './synth'
-
 
 function App() {
 
-  document.Tone = Tone;
+  // document.Tone = Tone;
 
-  const [ paintingForm, setPaintingForm ] = useState([])
-  const [ painting, setPainting ] = useState([]);
-  const [ title, setTitle ] = useState([]);
+  const [ painting, setPainting ] = useState('')
+  const [ paintingUrl, setPaintingUrl ] = useState([]);
+  const [ paintingTitle, setPaintingTitle ] = useState([]);
   const [ colors, setColors ] = useState([]);
   const [ scale, setScale ] = useState([]);
+  const [ scaleName, setScaleName ] = useState('');
   const [ notes, setNotes ] = useState([]);
   const [ playButton, setPlayButton ] = useState(false);
   const [ tempo, setTempo ] = useState('100');
   const [ loading, setLoading ] = useState(false);
 
   const play = function () {
-    // Tone.setContext(new Tone.Context({ latencyHint : "playback" }))
-    // console.log(Tone.Transport.context)
     setPlayButton(true);
     Tone.Transport.stop()
     Tone.Transport.cancel()
@@ -131,21 +128,18 @@ function App() {
         } 
       }
     }
-    // console.log(base12Chords)
+ 
     return base12Chords.map( function(currentChord) {
 
           return currentChord.map((note) => { 
           //  return ionian.includes(note) ? note : null
-            console.log(scale.includes(note) ? note : null)
            return scale.includes(note) ? note : null
            })
         });
   }
 
-  // 
 
   const convertToPitch = (base12Chords) => {
-    console.log(base12Chords)
 
     let finalChordArray = [];
 
@@ -169,7 +163,7 @@ function App() {
         case 3:
           finalChordArray[x].push(`Eb${Math.floor(Math.random() * 3) + 2}`);
           break;
-        default: console.log('default case')
+        default: console.log('hello')
       }
       switch (midRegister) {
         case 4:
@@ -184,7 +178,7 @@ function App() {
         case 7:
           finalChordArray[x].push(`G${Math.floor(Math.random() * 4) + 2}`);
           break;
-        default: console.log('default case')
+        default: console.log('there')
           break;
       }
       switch (highRegister) {
@@ -200,19 +194,15 @@ function App() {
         case 11:
           finalChordArray[x].push(`B${Math.floor(Math.random() * 4) + 2}`);
           break;
-        default: console.log('default case')
+        default: console.log('!')
       }
     }
-    console.log(finalChordArray)
     return finalChordArray
   }
 
   const toSound = ((finalChordArray) => {
 
     Tone.Transport.bpm.value = tempo;
-    
-    // Tone.Transport.start('+0.1');
-
 
     setNotes(finalChordArray)
   
@@ -226,7 +216,6 @@ function App() {
       }, chordSequence, '4n')
     }
 
-
     const highVoice = playChordSequence(synth, highNotes);
     const midVoice = playChordSequence(synth, midNotes);
     const lowVoice = playChordSequence(synth, lowNotes);
@@ -235,44 +224,40 @@ function App() {
     midVoice.start();
     lowVoice.start();
   });
-
-
-  useEffect(function () {
-    setLoading(true);
-    axios({
-      url: `https://www.rijksmuseum.nl/api/en/collection/${paintingForm}`,
-      params: {
-        key: 'ATefFwWi',
-      }
-    }).then((artData) => {
-      setLoading(false);
-      setPainting(artData.data.artObject.webImage.url)
-      setTitle(artData.data.artObject.longTitle)
-
-      
-      let hexColors = [];
-      
-      for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
   
-        hexColors.push(artData.data.artObject.colors[i].hex);
+  useEffect(function () {
+      setLoading(true);
+    
+      axios({
+        url: `https://www.rijksmuseum.nl/api/en/collection/${painting}`,
+        params: {
+          key: 'ATefFwWi',
+        }
+      }).then((artData) => {
+        setLoading(false);
+        setPaintingUrl(artData.data.artObject.webImage.url)
+        setPaintingTitle(artData.data.artObject.longTitle)
 
-      }
-      setColors(hexColors)
-    })
-  }, [paintingForm]);
+        
+        let hexColors = [];
+        
+        for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
+    
+          hexColors.push(artData.data.artObject.colors[i].hex);
 
-  const selectPainting = function (chosenPainting) {
-    console.log('selectPainting()')
-    setPaintingForm(chosenPainting);
+        }
+        setColors(hexColors)
+      })
+
+  }, [painting]);
+
+
+  const selectPainting = function (  chosenPainting ) {
+    setPainting(chosenPainting);
   }
 
-  const selectTempo = function (event, chosenBpm) {
-    event.preventDefault();
-    setTempo(chosenBpm)
-  }
-
-  const selectMode = function (event, chosenScale) {
-    event.preventDefault();
+  const selectScale = function ( chosenScale ) {
+    setScaleName(chosenScale)
     chosenScale === 'ionian' ? setScale([0, 2, 4, 5, 7, 9, 11]) :
     chosenScale === 'dorian' ? setScale([0, 2, 3, 5, 7, 9, 10]) :
     chosenScale === 'phrygian' ? setScale([0, 1, 3, 5, 7, 8, 10]) :
@@ -283,8 +268,12 @@ function App() {
     chosenScale === 'whole-tone' ? setScale([0, 2, 4, 6, 8, 10]) :
     chosenScale === 'half-whole' ? setScale([0, 2, 3, 5, 6, 8, 9, 11]) :
     chosenScale === 'whole-half' ? setScale([0, 1, 3, 4, 6, 7, 9, 10]) :
-    chosenScale === 'chormatic' ? setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+    chosenScale === 'chromatic' ? setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
     : setScale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+  }
+
+  const selectTempo = function (chosenBpm) {
+    setTempo(chosenBpm)
   }
 
   return loading ? 
@@ -294,16 +283,16 @@ function App() {
     <div className="wrapper">
       <div className="onPageLoad">
         <h1>Sounds and Colors</h1>
-        <PaintingSelector onPaintingChange={selectPainting} />
-        <Mode handleMode={selectMode}/>
-        <Tempo handleSubmit={selectTempo} />
+        <PaintingSelector onPaintingChange={selectPainting} painting={painting} />
+        <ScaleSelector onScaleChange={selectScale} scaleName={scaleName} />
+        <TempoSelector onTempoChange={selectTempo} />
         <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
       </div>
         <HexColorCodes listHexCodes={colors} />
         <DisplayNotes listNotes={notes} />
-        <h2>{title}</h2>
+        <h2>{paintingTitle}</h2>
         <div className='paintingContainer' >
-          <img src={painting} alt={title} />
+          <img src={paintingUrl} alt={paintingTitle} />
         </div>
         <footer><a href="https://www.rijksmuseum.nl/en" target="_blank" rel="noreferrer">Paintings courtesy of the Rijks Museum API</a></footer>
     </div>
