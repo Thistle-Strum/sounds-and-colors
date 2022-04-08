@@ -30,9 +30,15 @@ body{
  }
 
 h1 {
+  color: white;
   margin: 0px 0 10px 0;
   line-height: 2.5rem;
-}
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
 
 h2 {
   font-size: 2.5rem;   
@@ -47,7 +53,7 @@ ul {
   color: black;
   text-decoration: none;
   margin: 0 auto;
-  box-shadow: 12px 29px 81px 0px rgba(77, 77, 77, 0.75);;
+  /* box-shadow: 12px 29px 81px 0px rgba(77, 77, 77, 0.75);; */
 }
 
 img {
@@ -60,6 +66,15 @@ select {
   padding: 0 5px;
   margin-bottom: 5px;
   padding: 3px 8px 0 8px;
+  border-radius: 20px;
+  border: black 1px solid;
+}
+
+select:hover {
+  color: white;
+  background-color: rgb(86, 86, 86);
+  border: white 1px solid;
+  transition: 0.5 ease-in;
 }
 
 button {
@@ -70,9 +85,6 @@ button {
 
 .loadingContainer {
   height: 100vh;
-
-  /* width: 2rem;
-  height: 2rem; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,53 +110,35 @@ button {
   background-color: blue;
 }
 
+.flexContainer {
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12%;
+}
 
-.onPageLoad {
+.landingPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: black 2px solid;
   border-radius: 50%;
-  margin: 15% 33% 4% 33%;
-  padding: 4%;
+  width: 350px;
+  height: 350px;
+  margin-bottom:30px;
   background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);;
-  -webkit-animation-name: animate1; /* Chrome, Safari, Opera */
-  -webkit-animation-duration: 7s; /* Chrome, Safari, Opera */
-  animation-name: animate1;
-  animation-duration: 15s;
 }
 
-@-webkit-keyframes animate1 {
-  0% {color: rgb(255, 255, 255)}
-  10% {color: rgb(120, 231, 250)}
-  20% {color: rgb(34, 44, 239)}
-  30% {color: rgb(133, 27, 233)}
-  40% {color: rgb(231, 63, 200)}
-  50%   {color: rgb(255, 0, 0);}
-  60%  {color: rgb(255, 102, 0);}
-  70%  {color: rgb(249, 235, 38);}
-  80% {color: rgb(63, 167, 47)}
-  90% {color: rgb(138, 201, 186)}
-  100% {color: rgb(240, 244, 247)}
+.paintingSelector,
+.scaleSelector,
+.tempoSelector {
+  -webkit-appearance: none;
+  appearance: none;
+  text-align: center;
 }
-
-/* Standard syntax */
-@keyframes animate1 {
-  0% {color: rgb(255, 255, 255)}
-  10% {color: rgb(120, 231, 250)}
-  20% {color: rgb(34, 44, 239)}
-  30% {color: rgb(133, 27, 233)}
-  40% {color: rgb(231, 63, 200)}
-  50%   {color: rgb(255, 0, 0);}
-  60%  {color: rgb(255, 102, 0);}
-  70%  {color: rgb(249, 235, 38);}
-  80% {color: rgb(63, 167, 47)}
-  90% {color: rgb(138, 201, 186)}
-  100% {color: rgb(240, 244, 247)}
-}
-
 .selectMenu {
   display: flex;
   flex-direction: column;
@@ -162,7 +156,39 @@ button {
 }
 
 .playControls button {
-  margin: 0px 5px 5px 5px;
+  /* margin: px 5px 5px 5px; */
+  border-radius: 10px;
+  border: black 1px solid;
+  padding: 5px;
+}
+
+.playControls .play:hover   {
+  background: rgb(160, 160, 160);  
+  transition: 0.5 ease-in;
+}
+
+.playControls .stop:hover {
+  background: rgb(160, 160, 160);
+  transition:  0.9 ease-in;
+}
+
+.playIconContainers {
+  display:flex;
+  justify-content: center;
+}
+
+.shuffleIcon,
+.playIcon {
+  height: 30px;
+  width: 30px;
+}
+
+.stopIcon {
+  height: 30px;
+  width: 30px;
+  padding-top: 5px;
+  position: relative;
+  top: 1px;
 }
 
 .colors {

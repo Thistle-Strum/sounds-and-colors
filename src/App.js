@@ -281,20 +281,22 @@ function App() {
         <LoadingAnimation />      
     </div> : (
     <div className="wrapper">
-      <div className="onPageLoad">
-        <h1>Sounds and Colors</h1>
-        <PaintingSelector onPaintingChange={selectPainting} painting={painting} />
-        <ScaleSelector onScaleChange={selectScale} scaleName={scaleName} />
-        <TempoSelector onTempoChange={selectTempo} />
-        <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
-      </div>
-        <HexColorCodes listHexCodes={colors} />
-        <DisplayNotes listNotes={notes} />
-        <h2>{paintingTitle}</h2>
-        <div className='paintingContainer' >
-          <img src={paintingUrl} alt={paintingTitle} />
+      <div className="flexContainer">
+        <div className="landingPage">
+          <h1>Sounds and Colors</h1>
+          <PaintingSelector onPaintingChange={selectPainting} painting={painting} />
+          <ScaleSelector onScaleChange={selectScale} scaleName={scaleName} />
+          <TempoSelector onTempoChange={selectTempo} />
+          <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
         </div>
-        <footer><a href="https://www.rijksmuseum.nl/en" target="_blank" rel="noreferrer">Paintings courtesy of the Rijks Museum API</a></footer>
+          <HexColorCodes listHexCodes={colors} />
+          <DisplayNotes listNotes={notes} />
+          <h2>{paintingTitle}</h2>
+          <div className='paintingContainer' >
+            <img src={paintingUrl} alt={paintingTitle} />
+          </div>
+          <footer><a href="https://www.rijksmuseum.nl/en" target="_blank" rel="noreferrer">Paintings courtesy of the Rijks Museum API</a></footer>
+      </div>
     </div>
   );
 }

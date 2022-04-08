@@ -8,12 +8,13 @@ function ScaleSelector (props) {
 
     return (
             <select 
+                className="scaleSelector"
                 name="scale"     
                 id="scale"
                 onChange={ handleChange }
                 value={props.scaleName}
             >
-                <option value="placeholder">Select filter:</option>
+                <option value="placeholder">Select filter</option>
                 <option value="ionian">ionian</option>
                 <option value="dorian">dorian</option>
                 <option value="phrygian">phrygian</option>

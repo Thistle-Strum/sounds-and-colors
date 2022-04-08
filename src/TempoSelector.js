@@ -7,12 +7,13 @@ function TempoSelector (props) {
     }
 
     return (
-            <select 
+            <select
+                className="tempoSelector" 
                 id="tempo" 
                 name="tempo"
                 onChange={ handleChange }
             >
-                <option value="placeholder" >Select tempo:</option>
+                <option value="placeholder" >Select tempo</option>
                 <option value="20">20bpm</option>
                 <option value="30">30bpm</option>
                 <option value="40">40bpm</option>

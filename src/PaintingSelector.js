@@ -8,6 +8,7 @@ function PaintingSelector(props) {
 
   return (
     <select
+      className="paintingSelector"
       id="painting"
       name="painting"
       onChange={ handleChange }
@@ -15,7 +16,7 @@ function PaintingSelector(props) {
     >
       
       <option value="placeholder" >
-      Select a painting: </option>
+      Select a painting </option>
       <option value="SK-C-5">The Night Watch</option>
       <option value="SK-C-149">A Mother's Duty</option>
       <option value="SK-A-3059">The Sick Child</option>
