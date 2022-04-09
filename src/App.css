@@ -23,10 +23,6 @@ select { -webkit-appearance: none;}
   padding: 0;
 }
 
-html {
-  height: 100%;
-}
-
 body{
   font-size: 125%;
   /* height: 100%; */
@@ -305,11 +301,12 @@ footer {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
-    .contentContainer {
-
+    html {
+      height: 100%;
     }
+  }
 
-}
+
 
 @media (max-width: 710px) {
   .colors {
