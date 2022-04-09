@@ -281,7 +281,7 @@ function App() {
         <LoadingAnimation />      
     </div> : (
     <div className="wrapper">
-      <div className="flexContainer">
+      <div className="contentContainer">
         <div className="player">
           <h1>Sounds and Colors</h1>
           <PaintingSelector onPaintingChange={selectPainting} painting={painting} />

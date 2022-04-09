@@ -24,7 +24,7 @@ select { -webkit-appearance: none;}
 }
 
 html {
-  height: 100%;
+  /* height: 100%; */
 }
 
 body{
@@ -157,7 +157,7 @@ button {
   background-color: blue;
 }
 
-.flexContainer {
+.contentContainer {
   display: flex;
   /* height: 100%; */
   flex-direction: column;
@@ -283,8 +283,6 @@ footer {
 
 /* ******************************************** */
 
-
-
 @media (max-width: 870px) {
   
   .player {
@@ -299,6 +297,18 @@ footer {
   .notes {
     margin: 0 20%;
   }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .contentContainer {
+
+    }
+
 }
 
 @media (max-width: 710px) {
