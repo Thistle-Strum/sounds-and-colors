@@ -31,7 +31,7 @@ body{
   font-size: 125%;
   height: 100%;
   background: linear-gradient(rgb(255, 255, 255), grey, rgb(50, 50, 50));
-  height: 100%; 
+  background-repeat: no-repeat;
 }
 
 .wrapper {
@@ -129,11 +129,11 @@ button {
 }
 
 .loadingContainer {
-  /* height: 100vh; */
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+
 }
 
 .loadingCircle1,
