@@ -99,6 +99,7 @@ button {
 
 select {
   color: black;
+  text-align: center;
   cursor: pointer;
   font-size: clamp(1rem, 1.75vw, 1.25rem);
   padding: 0 5px;
@@ -203,7 +204,7 @@ button {
 
 .playControls button {
   border-radius: 5px;
-  box-shadow: 1px 1px 1px 1px;
+  box-shadow: 1px 1px 1px 1px black;
   padding: 5px;
 }
 
