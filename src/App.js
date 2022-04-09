@@ -282,7 +282,7 @@ function App() {
     </div> : (
     <div className="wrapper">
       <div className="flexContainer">
-        <div className="landingPage">
+        <div className="player">
           <h1>Sounds and Colors</h1>
           <PaintingSelector onPaintingChange={selectPainting} painting={painting} />
           <ScaleSelector onScaleChange={selectScale} scaleName={scaleName} />
