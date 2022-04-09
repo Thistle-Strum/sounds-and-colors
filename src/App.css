@@ -8,6 +8,13 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"],
+select { -webkit-appearance: none;}
+  textarea { -webkit-appearance: none;} 
+
+
 
 
 
@@ -18,6 +25,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 body{
   font-size: 125%;
+  height: 100%;
   background: linear-gradient(rgb(255, 255, 255), grey, rgb(50, 50, 50));
 }
 
@@ -80,7 +88,7 @@ button {
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  transition: background 250ms ease-in-out, 
+  transition: background 150ms ease-in-out, 
               transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -95,8 +103,10 @@ select {
   padding: 3px 8px 0 8px;
   border-radius: 20px;
   border: black 1px solid;
-  transition: background 250ms ease-in-out, 
+  transition: background 150ms ease-in-out, 
               transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 select:hover,
@@ -268,6 +278,7 @@ footer {
 
 
 @media (max-width: 870px) {
+  
   .player {
     margin-bottom: 100px
   }
