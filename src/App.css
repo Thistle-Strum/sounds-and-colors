@@ -159,7 +159,7 @@ button {
 
 .contentContainer {
   display: flex;
-  /* height: 100%; */
+  height: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -182,7 +182,7 @@ button {
 .paintingSelector,
 .scaleSelector,
 .tempoSelector {
-  /* -webkit-appearance: none; */
+  -webkit-appearance: none;
   appearance: none;
   text-align: center;
   padding-bottom: 5px;
@@ -194,7 +194,7 @@ button {
 }
 
 .paintingContainer {
-  /* margin: 0 0% 20px 0%; */
+  margin: 0 0% 20px 0%;
 }
 
 .playControls {
