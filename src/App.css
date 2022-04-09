@@ -8,12 +8,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
+
 
 
 * {
@@ -61,7 +56,6 @@ ul {
   color: black;
   text-decoration: none;
   margin: 0 auto;
-  /* box-shadow: 12px 29px 81px 0px rgba(77, 77, 77, 0.75);; */
 }
 
 img {
@@ -69,17 +63,44 @@ img {
   width: 100%;
 }
 
+input,
+button,
+textarea,
 select {
-  -webkit-appearance:none;
+  font: inherit;
+}
+
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+select {
+  cursor: pointer;
   font-size: clamp(1rem, 1.75vw, 1.25rem);
   padding: 0 5px;
   margin-bottom: 5px;
   padding: 3px 8px 0 8px;
   border-radius: 20px;
   border: black 1px solid;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
 }
 
-select:hover {
+select:hover,
+select:focus {
   color: white;
   background-color: rgb(86, 86, 86);
   border: white 1px solid;
@@ -87,7 +108,6 @@ select:hover {
 }
 
 button {
-  -webkit-appearance:none;
   font-size: clamp(1rem, 1.75vw, 2rem);
   margin: 0px 5px;
   padding: 3px 8px 0px 8px;
@@ -121,12 +141,11 @@ button {
 }
 
 .flexContainer {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 12%;
+  padding-top: 12%;
 }
 
 .player {
@@ -145,7 +164,7 @@ button {
 .paintingSelector,
 .scaleSelector,
 .tempoSelector {
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   appearance: none;
   text-align: center;
   padding-bottom: 5px;
@@ -167,18 +186,20 @@ button {
 }
 
 .playControls button {
-  /* margin: px 5px 5px 5px; */
+  
   border-radius: 5px;
-  border: black 1px solid;
+  box-shadow: 1px 1px 1px 1px;
   padding: 5px;
 }
 
-.playControls .play:hover   {
+.playControls .play:hover,
+.playControls .play:focus    {
   background: rgb(160, 160, 160);  
   transition: 0.5 ease-in;
 }
 
-.playControls .stop:hover {
+.playControls .stop:hover,
+.playControls .stop:focus {
   background: rgb(160, 160, 160);
   transition:  0.9 ease-in;
 }
