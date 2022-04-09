@@ -16,9 +16,14 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   padding: 0;
 }
 
+html {
+  /* height: 100vh; */
+}
+
 body{
   font-size: 125%;
   background: linear-gradient(rgb(255, 255, 255), grey, rgb(50, 50, 50));
+  height: 100%; 
 }
 
 .wrapper {
@@ -114,10 +119,11 @@ button {
 }
 
 .loadingContainer {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
+  /* height: 100%; */
 }
 
 .loadingCircle1,
@@ -142,10 +148,11 @@ button {
 
 .flexContainer {
   display: flex;
+  /* height: 100%; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 12%;
+  padding-top: 15%;
 }
 
 .player {
