@@ -11,7 +11,7 @@ function PlayButton(props) {
                     width="3.43056in" height="3.36111in"
                     viewBox="0 0 247 242">
                     <path id="Selection"
-                    fill="red" stroke="red" stroke-width="1"
+                    fill="red" stroke="red" strokeWidth="1"
                     d="M 58.00,9.46
                     C 68.95,7.98 75.90,13.11 85.00,18.28
                     85.00,18.28 129.00,43.72 129.00,43.72
@@ -43,7 +43,7 @@ function PlayButton(props) {
                     width="4.29167in" height="3.70833in"
                     viewBox="0 0 309 267">
                     <path id="Selection"
-                    fill="green" stroke="green" stroke-width="1"
+                    fill="green" stroke="green" strokeWidth="1"
                     d="M 260.00,49.00
                     C 256.54,44.17 252.19,40.19 248.00,36.00
                     244.63,32.63 238.08,27.46 239.33,22.11
@@ -111,7 +111,7 @@ function PlayButton(props) {
                 width="3.75in" height="3.48611in"
                 viewBox="0 0 270 251">
                 <path id="Selection #1"
-                fill="black" stroke="black" stroke-width="1"
+                fill="black" stroke="black" strokeWidth="1"
                 d="M 41.00,13.53
                 C 41.00,13.53 64.00,13.00 64.00,13.00
                 64.00,13.00 104.00,13.00 104.00,13.00

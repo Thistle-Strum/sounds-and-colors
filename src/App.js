@@ -10,6 +10,7 @@ import DisplayNotes from './DisplayNotes';
 import TempoSelector from './TempoSelector'
 import ScaleSelector from './ScaleSelector'
 import LoadingAnimation from './LoadingAnimation';
+import Score from './Score'
 
 function App() {
 
@@ -138,7 +139,6 @@ function App() {
         });
   }
 
-
   const convertToPitch = (base12Chords) => {
 
     let finalChordArray = [];
@@ -197,7 +197,10 @@ function App() {
         default: console.log('!')
       }
     }
+
+    console.log(finalChordArray)
     return finalChordArray
+    
   }
 
   const toSound = ((finalChordArray) => {
@@ -234,11 +237,11 @@ function App() {
           key: 'ATefFwWi',
         }
       }).then((artData) => {
+       
         setLoading(false);
         setPaintingUrl(artData.data.artObject.webImage.url)
         setPaintingTitle(artData.data.artObject.longTitle)
-
-        
+ 
         let hexColors = [];
         
         for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
@@ -289,6 +292,12 @@ function App() {
           <TempoSelector onTempoChange={selectTempo} />
           <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
         </div>
+          <Score 
+            staves={[['g3', 'd4', 'e4', 'd4'],
+            ['a4', 'd4', 'e4', 'd4'],
+            ['a4', 'a4', 'b4', 'a4'],
+            ['d4', 'e4', ['g3', 'b2']],
+            ]} />
           <HexColorCodes listHexCodes={colors} />
           <DisplayNotes listNotes={notes} />
           <h2>{paintingTitle}</h2>
