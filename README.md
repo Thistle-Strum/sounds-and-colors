@@ -5,7 +5,7 @@ A web application designed to demonstrate how colour and sound can intermingle. 
 ## **Tech Used**
 *	React.js
 *	Tone.js
-*	RESTful API
+*	REST API
 
 ## **Features**
 *	Fetches painting and colour data from the Rijks Museum API https://www.rijksmuseum.nl/en/research/conduct-research/data
