@@ -295,7 +295,9 @@ function App() {
           <div className='paintingContainer' >
             <img src={paintingUrl} alt={paintingTitle} />
           </div>
-          <footer><a href="https://www.rijksmuseum.nl/en" target="_blank" rel="noreferrer">Paintings courtesy of the Rijks Museum API</a></footer>
+          <footer>
+          <p>Created by <a href="https://sounds-and-colors.netlify.app/" target="_blank" rel="noreferrer">David Benitez</a> at <a href="https://junocollege.com/" target="_blank" rel="noreferrer">Juno College of Technology</a></p> 
+          <a href="https://www.rijksmuseum.nl/en" target="_blank" rel="noreferrer">Paintings courtesy of the Rijks Museum API</a></footer>
       </div>
     </div>
   );

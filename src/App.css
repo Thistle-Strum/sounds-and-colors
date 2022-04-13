@@ -68,6 +68,11 @@ ul {
   margin: 0 auto;
 }
 
+a:hover {
+  color: #F69F40;
+  transition: 0.5 ease-in ease-in-out;
+}
+
 img {
   display: block;
   width: 100%;
