@@ -287,14 +287,14 @@ useEffect(() => {
   const VF = VexFlow.Flow
 
   let timeSignature = `${notes.length}/8`;
-  // Create an SVG renderer and attach it to the DIV element named "boo".
+  // Create an SVG renderer and attach it to the DIV element named "score2".
   const vf = new VF.Factory({renderer: {elementId: 'score2', height: 700}});
   const score = vf.EasyScore();
   let system = vf.System();
 
   // console.log(notes)
   const replaceEmptyArrays = notes.map( chord => {
-    return chord.length === 0 ? chord.concat('C4/r/8') :
+    return chord.length === 0 ? chord.concat('C4/8/r') :
         chord;
   });
 
@@ -346,7 +346,7 @@ useEffect(() => {
   system.addStave({
     voices: [
       score.voice(score.notes('C5/8/r,B4/r,A4,G#4, C5/r,B4/r,A4,G#4', {stem: 'up'})),
-      score.voice(score.notes('C#4/h, C#4', {stem: 'down'}))
+      score.voice(score.notes('C#4/h/r, C#4', {stem: 'down'}))
     ]
   }).addClef('treble').addTimeSignature(timeSignature);
 
