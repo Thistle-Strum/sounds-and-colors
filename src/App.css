@@ -272,7 +272,30 @@ button {
   justify-content: center;
   flex-wrap: wrap;
 }
-    
+
+.scoreContainer {
+  /* border: red solid 2px; */
+  background-color: white;
+  height: 300px;
+  border-radius: 20px;
+  /* padding-left: 55%; */
+  }
+
+.scoreContainer svg {
+  /* border: blue solid 2px; */
+  position: relative;
+  left: 150px;
+}
+
+#score2 svg {
+  overflow: visible;
+  /* border: green solid 2px; */
+  height: 300px;
+  width:100%;
+
+  
+}
+
 .notes li {
   font-size: 1rem;
   font-weight: 600;

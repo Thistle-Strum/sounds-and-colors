@@ -1,15 +1,18 @@
 import './App.css';
 import * as Tone from 'tone'
 import axios from 'axios';
+import VexFlow from 'vexflow'
 import { useState, useEffect } from 'react';
 import { synth } from './synth'
-import PlayButton from './PlayButton';
+import PlayerButtons from './PlayerButtons';
 import PaintingSelector from './PaintingSelector'
 import HexColorCodes from './HexColorCodes';
-import DisplayNotes from './DisplayNotes';
+// import DisplayNotes from './DisplayNotes';
 import TempoSelector from './TempoSelector'
 import ScaleSelector from './ScaleSelector'
 import LoadingAnimation from './LoadingAnimation';
+// import Score from './Score'
+// import Score2   from './Score2';
 
 function App() {
 
@@ -22,12 +25,13 @@ function App() {
   const [ scale, setScale ] = useState([]);
   const [ scaleName, setScaleName ] = useState('');
   const [ notes, setNotes ] = useState([]);
-  const [ playButton, setPlayButton ] = useState(false);
+  // const [ playButton, setPlayButton ] = useState(false);
   const [ tempo, setTempo ] = useState('100');
   const [ loading, setLoading ] = useState(false);
+  const [ score, setScore ] = useState()
 
   const play = function () {
-    setPlayButton(true);
+    // setPlayButton(true);
     Tone.Transport.stop()
     Tone.Transport.cancel()
     Tone.Transport.clear()
@@ -36,10 +40,10 @@ function App() {
    
     
     
-    toSound(
-      convertToPitch(
+    toTone(
+      convertToPitchNames(
         convertToBase12(
-          callTone()
+          hexToPercentage()
           )
         )
       );
@@ -49,11 +53,10 @@ function App() {
     
     Tone.Transport.stop()
     Tone.Transport.cancel();
-    setPlayButton(false);
+    // setPlayButton(false);
   }
 
-  // convertHexCodeToPercentage
-  const callTone = () => {
+  const hexToPercentage = () => {
     const chords = colors.map((color) => {
       let hexValue = color.trim().substring(1, 7)
       let newArray = [];
@@ -70,11 +73,8 @@ function App() {
     return chords
   };
  
-  // convert percentage To one of four positions for each color c, db, d, eb/1-24/25-49/50-74/75-99 // e f gb g -> 0 1 2 3
-
-  // this divides the octave into 12 parts
-
   const convertToBase12 = (chords) => {
+    // console.log(chords)
     let base12Chords = [];
 
     for (let x = 0; x < chords.length; x++) {
@@ -128,19 +128,20 @@ function App() {
         } 
       }
     }
- 
-    return base12Chords.map( function(currentChord) {
-
+    
+    return base12Chords.map(function(currentChord) {
+      // console.log(currentChord)
           return currentChord.map((note) => { 
           //  return ionian.includes(note) ? note : null
-           return scale.includes(note) ? note : null
+          // console.log(note)
+          // console.log(scale.includes(note) ? note : '8/r')
+           return scale.includes(note) ? note : '';
            })
         });
   }
 
-
-  const convertToPitch = (base12Chords) => {
-
+  const convertToPitchNames = (base12Chords) => {
+    // console.log(base12Chords)
     let finalChordArray = [];
 
     for (let x = 0; x < base12Chords.length; x++) {
@@ -163,7 +164,7 @@ function App() {
         case 3:
           finalChordArray[x].push(`Eb${Math.floor(Math.random() * 3) + 2}`);
           break;
-        default: console.log('hello')
+        default: console.log('0 -> 3')
       }
       switch (midRegister) {
         case 4:
@@ -178,7 +179,7 @@ function App() {
         case 7:
           finalChordArray[x].push(`G${Math.floor(Math.random() * 4) + 2}`);
           break;
-        default: console.log('there')
+        default: console.log('4 -> 7')
           break;
       }
       switch (highRegister) {
@@ -194,13 +195,17 @@ function App() {
         case 11:
           finalChordArray[x].push(`B${Math.floor(Math.random() * 4) + 2}`);
           break;
-        default: console.log('!')
+        default: console.log('8 -> 11')
       }
     }
+    finalChordArray.forEach((chord) => {
+      // console.log(chord)
+    }) 
+      // console.log(finalChordArray[3])
     return finalChordArray
   }
 
-  const toSound = ((finalChordArray) => {
+  const toTone = ((finalChordArray) => {
 
     Tone.Transport.bpm.value = tempo;
 
@@ -238,7 +243,6 @@ function App() {
         setPaintingUrl(artData.data.artObject.webImage.url)
         setPaintingTitle(artData.data.artObject.longTitle)
 
-        
         let hexColors = [];
         
         for (let i = 0; i < (artData.data.artObject.colors.length); i++) {
@@ -250,7 +254,6 @@ function App() {
       })
 
   }, [painting]);
-
 
   const selectPainting = function (  chosenPainting ) {
     setPainting(chosenPainting);
@@ -276,6 +279,93 @@ function App() {
     setTempo(chosenBpm)
   }
 
+
+// ******Vexflow**************************************
+
+
+useEffect(() => {
+  const VF = VexFlow.Flow
+
+  let timeSignature = `${notes.length}/8`;
+  // Create an SVG renderer and attach it to the DIV element named "boo".
+  const vf = new VF.Factory({renderer: {elementId: 'score2', height: 700}});
+  const score = vf.EasyScore();
+  let system = vf.System();
+
+  // console.log(notes)
+  const replaceEmptyArrays = notes.map( chord => {
+    return chord.length === 0 ? chord.concat('C4/r/8') :
+        chord;
+  });
+
+  console.log(replaceEmptyArrays)
+
+  // let pulseValue = '/8'
+
+  const addPulseValToChords = replaceEmptyArrays.map( chordArray  => { 
+    return chordArray.map(chord => { 
+      // need to make pulse value a state eventually
+      return chord.length === 2 || chord.length === 3 ?
+        chord.concat('/8') : chord;
+        });
+      });
+
+    
+  console.log(addPulseValToChords)
+
+  
+  const soprano = addPulseValToChords.map(voice => {
+    console.log(voice)
+      return voice.map(sopranoString => {
+        return sopranoString.includes('5') ? 
+              sopranoString :
+              !isNaN(sopranoString.charAt(1)) 
+      })
+    });
+
+    console.log(soprano)
+    // console.log(addPulseValToFirstArrayElement(soprano, pulseValue))
+
+      // make this a state eventually
+  
+
+  // function addPulseValue(voice, pulseValue) {
+  //   console.log(voice[0])
+  // }
+
+  // console.log(addPulseValue(soprano, pulseValue))
+
+  // const sopranoVoice = `${soprano.flat().toString()}`;
+  // console.log(sopranoVoice)
+
+  // function insert(sopranoVoice, pulseValue) {
+    
+  //   return str.substr(0, index) + value + str.substr(index);
+  // }
+
+  system.addStave({
+    voices: [
+      score.voice(score.notes('C5/8/r,B4/r,A4,G#4, C5/r,B4/r,A4,G#4', {stem: 'up'})),
+      score.voice(score.notes('C#4/h, C#4', {stem: 'down'}))
+    ]
+  }).addClef('treble').addTimeSignature(timeSignature);
+
+  system.addStave({
+    voices: [
+      score.voice(score.notes('C#3/q, B2, A2/8, B2, C#3, D3', {clef: 'bass', stem: 'up'})),
+      score.voice(score.notes('C#2/h, C#2', {clef: 'bass', stem: 'down'}))
+    ]
+  }).addClef('bass').addTimeSignature(timeSignature)
+
+  system.addConnector()
+  system.addConnector().setType(3); // 3 = brace
+
+  vf.draw();
+
+ 
+
+  }, [notes])
+
   return loading ? 
     <div>
         <LoadingAnimation />      
@@ -287,10 +377,14 @@ function App() {
           <PaintingSelector onPaintingChange={selectPainting} painting={painting} />
           <ScaleSelector onScaleChange={selectScale} scaleName={scaleName} />
           <TempoSelector onTempoChange={selectTempo} />
-          <PlayButton handleMusic={playButton} playButton={play} stopButton={stop} />
+          <PlayerButtons  playButton={play} stopButton={stop} />
         </div>
           <HexColorCodes listHexCodes={colors} />
-          <DisplayNotes listNotes={notes} />
+
+          <div className='scoreContainer' >
+            <div id="score2"></div>
+          </div>
+          
           <h2>{paintingTitle}</h2>
           <div className='paintingContainer' >
             <img src={paintingUrl} alt={paintingTitle} />
@@ -304,3 +398,14 @@ function App() {
 }
 
 export default App;
+
+
+// <div className='scoreContainer' >
+// <Score2 chordSequenceArray={notes} score={score}/>
+// </div>
+
+// <Score staves={notes}/>
+
+// <DisplayNotes onChordSeqCreation={notes} />
+
+// <PlayerButtons handleMusic={playButton} playButton={play} stopButton={stop} />
