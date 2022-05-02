@@ -29,7 +29,7 @@ function App() {
   const [ tempo, setTempo ] = useState('100');
   const [ loading, setLoading ] = useState(false);
   const [ score, setScore ] = useState()
-
+// ******Buttons**************************************
   const play = function () {
     // setPlayButton(true);
     Tone.Transport.stop()
@@ -55,7 +55,7 @@ function App() {
     Tone.Transport.cancel();
     // setPlayButton(false);
   }
-
+// ******NumberStuff**************************************
   const hexToPercentage = () => {
     const chords = colors.map((color) => {
       let hexValue = color.trim().substring(1, 7)
@@ -204,7 +204,7 @@ function App() {
       // console.log(finalChordArray[3])
     return finalChordArray
   }
-
+// ******Tone**************************************
   const toTone = ((finalChordArray) => {
 
     Tone.Transport.bpm.value = tempo;
@@ -229,7 +229,7 @@ function App() {
     midVoice.start();
     lowVoice.start();
   });
-  
+  // ******Rijks**************************************
   useEffect(function () {
       setLoading(true);
     
@@ -255,6 +255,7 @@ function App() {
 
   }, [painting]);
 
+// ******setState functions**************************************
   const selectPainting = function (  chosenPainting ) {
     setPainting(chosenPainting);
   }
