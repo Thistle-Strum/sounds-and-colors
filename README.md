@@ -10,7 +10,7 @@ A web application designed to demonstrate how colour and sound can intermingle. 
 ## **Features**
 *	Fetches painting and colour data from the Rijks Museum API https://www.rijksmuseum.nl/en/research/conduct-research/data
 *	Allows the user to select from a variety of common musical scales which act as a filter for the paintings most used colours
-*	Allows the user to select from a range of tempos (20bpm -> 450bpm)
+*	Allows the user to select from a range of tempos (50bpm -> 350bpm)
 *	User is provided with a random register configuration for each colour upon selecting the play/shuffle button for a second time
 
 ## **Setup Instructions**
